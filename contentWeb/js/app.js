@@ -13,7 +13,9 @@ prevButton.onclick = function(){
 }
 let unAcceptClick;
 const showSlider = (type) => {
-    carousel.classList.remove('prev', 'next')
+    carousel.classList.remove('prev', 'next');
+    nextButton.style.pointerEvents = 'none';
+    prevButton.style.pointerEvents = 'none';
     let items = document.querySelectorAll('.carousel .list .item');
     if(type === 'next'){
         listHTML.appendChild(items[0]);
@@ -23,4 +25,17 @@ const showSlider = (type) => {
         listHTML.prepend(items[positionLast]);
         carousel.classList.add('prev');
     }
+    clearTimeout(unAcceptClick);
+    unAcceptClick = setTimeout(() => {
+        nextButton.style.pointerEvents = 'auto';
+        prevButton.style.pointerEvents = 'auto';
+    }, 2000);
+}
+seeMoreButtons.forEach(button => {
+    button.onclick = function (){
+        carousel.classList.add('showDetail');
+    }
+})
+backButton.onclick = function(){
+    carousel.classList.remove('showDetail');
 }
